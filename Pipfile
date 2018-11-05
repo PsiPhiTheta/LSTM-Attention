@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pandas = "*"
+kaggle = "*"
 
 [dev-packages]
 
