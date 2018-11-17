@@ -25,3 +25,12 @@
 ## 13 Nov 2018 
 - Merged all branches to master, everyone should branch off from there and avoid deleting files
 - Created python script for data cleaning (as opposed to doing it inside notebooks).
+
+## 15 Nov 2018
+- Filtered market data to keep only the stocks continuous over the entire time series.
+- Small bug where when importing the csv, thi time is a string, easy fix.
+- 522 stocks from market data are continuous
+
+- installed matplotlib
+
+- looking at distribution of news data presence to understand better understand the sparsity

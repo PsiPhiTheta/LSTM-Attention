@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from itertools import chain
 
-REDUCED = True
 MARKET_DATA_PATH = "../data/raw/market_train_df.csv"
 NEWS_DATA_PATH = "../data/raw/news_train_df.csv"
 
@@ -23,7 +22,7 @@ def clean_market_data(market_df, train=True):
         Cleaned market data.
     
     '''
-    # Select columns and drop NA
+    # Select wanted columns
     if train:
         cols = ['assetCode', 'time', 'volume', 'open', 'returnsOpenPrevMktres1',
                 'returnsOpenPrevMktres10', 'returnsOpenNextMktres10']
@@ -31,10 +30,18 @@ def clean_market_data(market_df, train=True):
         cols = ['assetCode', 'time', 'volume', 'open', 'returnsOpenPrevMktres1',
                 'returnsOpenPrevMktres10']
     market_df = market_df.loc[:,cols]
+
+    # Drop NA
     market_df.dropna(inplace=True)
+
+    # Filter out stocks that cover the full time series
+    series_len = market_df.time.nunique()
+    market_df = market_df.groupby('assetCode') \
+                         .filter(lambda x: len(x) == series_len)
+    assert (market_df.groupby('assetCode').size() == series_len).all()
     
     # Normalize time
-    market_df.loc[:, 'time'] = market_df.time.dt.normalize()
+    market_df.loc[:, 'time'] = pd.to_datetime(market_df.time).dt.normalize()
     
     return market_df
 
@@ -61,7 +68,7 @@ def clean_news_data(news_df):
     news_df.dropna(inplace=True)
     
     # Normalize time
-    news_df.loc[:, 'time'] = news_df.time.dt.normalize()
+    news_df.loc[:, 'time'] = pd.to_datetime(news_df.time).dt.normalize()
     
     # assetCodes from String to List
     news_df['assetCodes'] = news_df['assetCodes'].str.findall(f"'([\w\./]+)'")
@@ -69,45 +76,33 @@ def clean_news_data(news_df):
     # Explode news on assetCodes
     assetCodes_expanded = list(chain(*news_df['assetCodes']))
     assetCodes_index = news_df.index.repeat(news_df['assetCodes'].apply(len))
-
     assert len(assetCodes_expanded) == len(assetCodes_index)
     
     assetCodes_df =  pd.DataFrame({'index': assetCodes_index, 'assetCode': assetCodes_expanded})
     news_df_exploded = news_df.merge(assetCodes_df, 'right', right_on='index', left_index=True, validate='1:m')
     news_df_exploded.drop(['assetCodes', 'index'], 1, inplace=True)
 
-    if extra_features:
-        # Compute means for same date and assetCode
-        news_agg_dict = {
-            'sentimentNegative':'mean',
-            'sentimentNeutral':'mean',
-            'sentimentPositive':'mean',
-            'urgency':'mean',
-            'bodySize':'mean',
-            'relevance':'mean'
-            }
-        news_df_agg = news_df_exploded.groupby(['time', 'assetCode'], as_index=False).agg(news_agg_dict)
-        
-        # Add provider information
-        idx = news_df_exploded.groupby(['time', 'assetCode'])['urgency'].transform(max) == news_df_exploded['urgency']
-        news_df_exploded_2 = news_df_exploded[idx][['time', 'assetCode', 'provider']].drop_duplicates(['time', 'assetCode'])
-        news_df_agg = news_df_agg.merge(news_df_exploded_2, 'left', ['time', 'assetCode'])
-        
-        # One-hot encoding provider
-        ohe_provider = pd.get_dummies(news_df_agg['provider'])
-        news_df_agg = pd.concat([news_df_agg, ohe_provider], axis=1).drop(['provider'], axis=1)
+    # Compute means for same date and assetCode
+    news_agg_dict = {
+        'sentimentNegative':'mean',
+        'sentimentNeutral':'mean',
+        'sentimentPositive':'mean',
+        'urgency':'mean',
+        'bodySize':'mean',
+        'relevance':'mean'
+        }
+    news_df_agg = news_df_exploded.groupby(['time', 'assetCode'], as_index=False).agg(news_agg_dict)
     
-    else:
-        # Compute means for same date and assetCode
-        news_agg_dict = {
-            'sentimentNegative':'mean',
-            'sentimentNeutral':'mean',
-            'sentimentPositive':'mean'
-            }
-        news_df_agg = news_df_exploded.groupby(['time', 'assetCode'], as_index=False).agg(news_agg_dict)
+    # Add provider information
+    idx = news_df_exploded.groupby(['time', 'assetCode'])['urgency'].transform(max) == news_df_exploded['urgency']
+    news_df_exploded_2 = news_df_exploded[idx][['time', 'assetCode', 'provider']].drop_duplicates(['time', 'assetCode'])
+    news_df_agg = news_df_agg.merge(news_df_exploded_2, 'left', ['time', 'assetCode'])
     
-    return news_df_agg
+    # One-hot encoding provider
+    ohe_provider = pd.get_dummies(news_df_agg['provider'])
+    news_df_agg = pd.concat([news_df_agg, ohe_provider], axis=1).drop(['provider'], axis=1)
 
+    return news_df_agg
 
 def clean_data(market_df, news_df, train=True):
     '''Clean and preprocess the news and market data for training then merge them, to create a train set or test set.
@@ -120,9 +115,7 @@ def clean_data(market_df, news_df, train=True):
         See https://www.kaggle.com/c/two-sigma-financial-news/data for full description of the dataframe.
     train : bool
         When true, creates both the input features and the target dataframes.
-    extra_features : bool
-        When true, adds extra columns that SE added ('urgency', 'provider', 'bodySize', 'relevance').
-        
+
     Returns
     -------
     dataframe 
@@ -141,6 +134,10 @@ def clean_data(market_df, news_df, train=True):
         return X, y
     else:
         return df_merged
+        
 
 if __name__ == '__main__':
+
+    market_train_df = pd.read_csv(MARKET_DATA_PATH)
+    news_train_df = pd.read_csv(NEWS_DATA_PATH)
     X_train, y_train = clean_data(market_train_df, news_train_df)

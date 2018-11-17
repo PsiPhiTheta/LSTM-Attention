@@ -7,6 +7,7 @@ name = "pypi"
 pandas = "*"
 kaggle = "*"
 jupyter = "*"
+matplotlib = "*"
 
 [dev-packages]
 
