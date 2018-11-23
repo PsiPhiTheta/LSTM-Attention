@@ -224,7 +224,66 @@ def plot_asset(market, assetCode):
     plt.show()
 
 
-# In[9]:
+# In[131]:
+
+
+def plot_chosen_assets():
+    '''Prints a group of select stocks, their price and their volatility.
+    
+    Parameters
+    ----------
+    none
+
+    Returns
+    -------
+    none
+    
+    '''
+    # Huge stocks (market cap 200BN - 1000BN)
+    #plot_asset(market_train_df, "GOOGL.O") #nonsense data?
+    #plot_asset(market_train_df, "AAPL.O") #randomly crashes from 2013-2015?
+    #plot_asset(market_train_df, "FB.O") #Facebook: correct, verified, unpredictable volatility
+    plot_asset(market_train_df, "INTC.O") #Intel: correct, verified, fair constant volatility
+    plot_asset(market_train_df, "WFC.N") #Wells Fargo: correct, verified, crash volatility
+    plot_asset(market_train_df, "AMZN.O") #Amazon: correct, verified, increasing volatility
+    
+    # SMEs (5-20Bn MC)
+    #plot_asset(market_train_df, "ADI.N") #Analogue Devices (32Bn MC): kinda correct (one weird correction), verified
+    #plot_asset(market_train_df, "NATI.O") #NI (6Bn MC): kinda correct (one weird correction in middle), verified
+    plot_asset(market_train_df, "A.N") #Agilent Tech (20Bn MC): kinda correct (one weird correction toward end), verified
+        
+    # Small stocks (MC < 1Bn)
+    #plot_asset(market_train_df, "ANDE.O") #Andersons (900M MC): unverified, high vol
+    #plot_asset(market_train_df, "ALO.N") #Alio Gold (90M MC): unverified, low vol
+    plot_asset(market_train_df, "BHE.N") #Benchmark Electronics (1Bn MC): verified, low vol
+
+
+# In[138]:
+
+
+def extract_stock(X_train, y_train, assetCode):
+    '''Extracts the training data for a particular asset
+    
+    Parameters
+    ----------
+    X_train : pandas dataframe containing all the assets' training data
+    y_train : pandas dataframe containing all the assets' labels
+    assetCode: asset code of asset to be extracted 
+
+    Returns
+    -------
+    X_train_asset : pandas dataframe containing data for only the chosen assetCode
+    y_train_asset : pandas dataframe containing label for only the chosen assetCode
+    '''
+    X_train_asset = X_train[X_train['assetCode']==assetCode]
+    y_train_asset = X_train.join(y_train)
+    y_train_asset = y_train_asset[y_train_asset['assetCode']==assetCode]
+    y_train_asset = y_train_asset.T.tail(1)
+    
+    return X_train_asset, y_train_asset
+
+
+# In[95]:
 
 
 market_train_df = pd.read_csv(MARKET_DATA_PATH)
@@ -234,37 +293,24 @@ X_train, y_train = clean_data(market_train_df, news_train_df)
 print("Data cleaned!") #can take a while
 
 
-# In[83]:
-
-
-# Huge stocks (market cap 200BN - 1000BN)
-plot_asset(market_train_df, "FB.O") #Facebook: correct, verified, unpredictable volatility
-plot_asset(market_train_df, "INTC.O") #Intel: correct, verified, fair constant volatility
-plot_asset(market_train_df, "WFC.N") #Wells Fargo: correct, verified, crash volatility
-plot_asset(market_train_df, "AMZN.O") #Amazon: correct, verified, increasing volatility
-#plot_asset(market_train_df, "GOOGL.O") #nonsense data?
-#plot_asset(market_train_df, "AAPL.O") #randomly crashes from 2013-2015?
-
-
-# In[93]:
-
-
-# SMEs (5-20Bn MC)
-#plot_asset(market_train_df, "ADI.N") #Analogue Devices (32Bn MC): kinda correct (one weird correction), verified
-plot_asset(market_train_df, "A.N") #Agilent Tech (20Bn MC): kinda correct (one weird correction toward end), verified
-plot_asset(market_train_df, "NATI.O") #NI (6Bn MC): kinda correct (one weird correction in middle), verified
-
-
-# In[91]:
-
-
-# Small stocks (MC < 1Bn)
-plot_asset(market_train_df, "ANDE.O") #Andersons (900M MC): unverified, high vol
-plot_asset(market_train_df, "ALO.N") #Alio Gold (90M MC): unverified, low vol
-
-
-# In[77]:
+# In[96]:
 
 
 EDA()
+
+
+# In[133]:
+
+
+plot_chosen_assets()
+
+
+# In[139]:
+
+
+X_train_INTC, y_train_INTC = extract_stock(X_train, y_train, "INTC.O")
+X_train_WFC, y_train_WFC = extract_stock(X_train, y_train, "WFC.N")
+X_train_AMZN, y_train_AMZN = extract_stock(X_train, y_train, "AMZN.O")
+X_train_A, y_train_A = extract_stock(X_train, y_train, "A.N") 
+X_train_BHE, y_train_BHE = extract_stock(X_train, y_train, "BHE.N") 
 
