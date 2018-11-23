@@ -15,8 +15,8 @@ from itertools import chain
 # In[8]:
 
 
-MARKET_DATA_PATH = "./data/raw/market_train_df.csv"
-NEWS_DATA_PATH = "./data/raw/news_train_df.csv"
+MARKET_DATA_PATH = "../data/raw/market_train_df.csv"
+NEWS_DATA_PATH = "../data/raw/news_train_df.csv"
 
 
 # In[4]:
