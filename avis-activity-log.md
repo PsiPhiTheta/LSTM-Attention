@@ -58,3 +58,13 @@
 - Implement Attention + LSTM model (Seung Eun)
 
 - Leave last 10% for testing. Do training/validation on remaining 90%.
+
+## 23 Nov 2018
+- Merge all branches on master
+- found a [good paper][1] on current state of economic forcasting methods.
+- found a [paper][2] dating from 2010 which compares 3 methods. I will implement these first.
+
+
+
+[1](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.2.3)
+[2](https://www.sciencedirect.com/science/article/pii/S0020025511006773)
