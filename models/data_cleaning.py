@@ -111,21 +111,25 @@ def clean_news_data(news_df):
 
 
 def clean_data(market_df, news_df, train=True):
-    '''Clean and preprocess the news and market data for training then merge them, to create a train set or test set.
+    '''Clean and preprocess the news and market data for training then merge 
+    them, to create a train set or test set.
     
     Parameters
     ----------
     market_df : dataframe
-        See https://www.kaggle.com/c/two-sigma-financial-news/data for full description of the dataframe.
+        See https://www.kaggle.com/c/two-sigma-financial-news/data for full 
+        description of the dataframe.
     news_df : dataframe
-        See https://www.kaggle.com/c/two-sigma-financial-news/data for full description of the dataframe.
+        See https://www.kaggle.com/c/two-sigma-financial-news/data for full 
+        description of the dataframe.
     train : bool
         When true, creates both the input features and the target dataframes.
 
     Returns
     -------
     dataframe 
-        Cleaned data ready to be fed to the model. Returns both the input and the target dataframes when train=True.
+        Cleaned data ready to be fed to the model. Returns both the input and
+        the target dataframes when train=True.
     
     '''
     cleaned_market_df = clean_market_data(market_df, train)
@@ -147,14 +151,20 @@ def extract_stock(X_train, y_train, assetCode):
     
     Parameters
     ----------
-    X_train : pandas dataframe containing all the assets' training data
-    y_train : pandas dataframe containing all the assets' labels
-    assetCode: asset code of asset to be extracted 
+    X_train : dataframe 
+        Dataframe containing all the assets' training data.
+    y_train : dataframe 
+        Dataframe containing all the assets' labels.
+    assetCode : String.
+        Asset code of asset to be extracted 
 
     Returns
     -------
-    X_train_asset : pandas dataframe containing data for only the chosen assetCode
-    y_train_asset : pandas dataframe containing label for only the chosen assetCode
+    dataframe 
+        Dataframe containing data for only the chosen assetCode.
+    dataframe 
+        Dataframe containing label for only the chosen assetCode
+    
     '''
     X_train_asset = X_train[X_train['assetCode']==assetCode]
     y_train_asset = X_train.join(y_train)

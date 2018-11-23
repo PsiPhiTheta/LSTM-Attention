@@ -64,6 +64,11 @@
 - found a [good paper][1] on current state of economic forcasting methods.
 - found a [paper][2] dating from 2010 which compares 3 methods. I will implement these first.
 
+- Cleaned data_cleaning.py module
+
+- Finished implementing first spliting strategy: **Last Block Evaluation**.
+
+
 
 
 [1](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.2.3)
