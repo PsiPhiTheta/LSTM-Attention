@@ -34,3 +34,27 @@
 - installed matplotlib
 
 - looking at distribution of news data presence to understand better understand the sparsity
+
+## 18 Nov 2018 - Short meeting about Prof. Grosse's email.
+- Our main concern is time: already put lots of effort on data processing for financial time series **and literature review**. 
+- In his opinion, would switching to waveforms represent an important overhead, or would the data be readily accessible and easy to implement.
+
+- Thomas will do the talking.
+
+## 20 Nov 2018 - Meeting with Jonathan Lauraine
+- Splitting data is well studied, many way to do.
+	- One critical choice is choice of time frame. (Maybe you don't want to train on all the data.)
+	- Try bunch of different ones.
+	- Look into ways of splitting Train-validate sets. (see picture)
+- Dealing with NANs, multiple ways to do this. (average over larger timeframe, fill with what you *think* it could be.)
+- Many stocks: One model per stock or on model for all the stocks (hyperparameter again). One asset would be perfectly fine given the scope of the project.
+- Comparing to baseline. 
+- Be wary of look ahead bias
+
+### Follow up meating with team
+- Train model on one stock. (Can swap the stock at the end)
+- Decide on stocks we will train/test on (Thomas)
+- Implement different functions for splitting training/testing sets and for dealing with NAs. (Antoine)
+- Implement Attention + LSTM model (Seung Eun)
+
+- Leave last 10% for testing. Do training/validation on remaining 90%.
