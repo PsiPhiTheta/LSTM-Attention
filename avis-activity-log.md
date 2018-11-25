@@ -65,9 +65,20 @@
 - found a [paper][2] dating from 2010 which compares 3 methods. I will implement these first.
 - Cleaned data_cleaning.py module
 - Finished implementing first spliting strategy: **Last Block Evaluation**.
-- TODO: 
-	- Refactor to iterator objects
-	- Finish implementing 3 other iterators
+
+TODO: 
+- Refactor to iterator objects
+- Finish implementing 3 other iterators
+
+## 25 Nov 2018
+- Refactored the methods to generators. 
+- Finished implementing the other 3 strategies. 
+- Started briefly investigating other more complicated methods presented by [Bergmeir & Benitez][2].
+
+TODO:
+- Determine how to evaluate models (methods for computing error). Should be able to find this information in [Bergmeir & Benitez' paper][2].
+- Further investigate other methods of spliting the data.
+- Integrate everythin so that we can at least test the LSTM and start generating results and graphs.
 
 [1](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.2.3)
 [2](https://www.sciencedirect.com/science/article/pii/S0020025511006773)
