@@ -146,15 +146,16 @@ def split_rolling_origin_update(X, train_size, val_size):
     dataframe
         The test set followed by one new observation at a time.
     dataframe
-        The validation set followed by None after the first iteration.
+        The validation set followed by an empty dataframe after the first 
+        iteration.
 
     '''   
     yield (X[:train_size], 
            X[train_size:train_size+val_size])
     pointer = train_size+val_size
 
-    while pointer <= len(X):
-        yield X[pointer]
+    while pointer < len(X):
+        yield X[pointer:pointer+1], pd.DataFrame()
         pointer += 1
 
 
@@ -212,7 +213,18 @@ if __name__ == '__main__':
     # Unit tests setup
     df = pd.DataFrame({'A':range(10)})
     
+
+    # Unit tests for split_fixed_origin
+    print('split_fixed_origin tests')
+    print('------------------------')
+    for i, j in split_fixed_origin(df, 6):
+        print(i.values.reshape(1,-1))
+        print(j.values.reshape(1,-1))
+        print()
+
     # Unit tests for split_rolling_origin_recal
+    print('split_rolling_origin_recal tests')
+    print('--------------------------------')
     len_i = 4
     len_j = 6
     for i, j in split_rolling_origin_recal(df, 4, 2):
@@ -220,11 +232,21 @@ if __name__ == '__main__':
         assert len(i) != 0 and len(j) != 0
         len_i += 2
         len_j -= 2
-
+        print(i.values.reshape(1,-1))
+        print(j.values.reshape(1,-1))
+        print()
 
     # Unit tests for split_rolling_origin_update
+    print('split_rolling_origin_update tests')
+    print('---------------------------------')
+    for i, j in split_rolling_origin_update(df, 4, 2):
+        print(i.values.reshape(1,-1))
+        print(j.values.reshape(1,-1))
+        print()
 
     # Unit tests for split_rolling_window
+    print('split_rolling_window tests')
+    print('--------------------------')
     for i, j in split_rolling_window(df, 4, 2, 2):
         print(i.values.reshape(1,-1))
         print(j.values.reshape(1,-1))
