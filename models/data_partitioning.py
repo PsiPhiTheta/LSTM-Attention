@@ -153,7 +153,7 @@ def split_rolling_origin_update(X, train_size, val_size):
     yield (X[:train_size], 
            X[train_size:])
 
-    while pointer < len(X):
+    while train_size < len(X):
         yield X[train_size:train_size+1], pd.DataFrame()
         train_size += 1
 
