@@ -79,6 +79,7 @@ TODO:
 - Determine how to evaluate models (methods for computing error). Should be able to find this information in [Bergmeir & Benitez' paper][2].
 - Further investigate other methods of spliting the data.
 - Integrate everythin so that we can at least test the LSTM and start generating results and graphs.
+- Generate figures explaining each strategy.
 
 [1](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.2.3)
 [2](https://www.sciencedirect.com/science/article/pii/S0020025511006773)
