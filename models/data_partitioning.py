@@ -151,12 +151,11 @@ def split_rolling_origin_update(X, train_size, val_size):
 
     '''   
     yield (X[:train_size], 
-           X[train_size:train_size+val_size])
-    pointer = train_size+val_size
+           X[train_size:])
 
     while pointer < len(X):
-        yield X[pointer:pointer+1], pd.DataFrame()
-        pointer += 1
+        yield X[train_size:train_size+1], pd.DataFrame()
+        train_size += 1
 
 
 def split_rolling_window(X, train_size, val_size, shift):
