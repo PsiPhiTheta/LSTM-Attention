@@ -8,6 +8,10 @@ pandas = "*"
 kaggle = "*"
 jupyter = "*"
 matplotlib = "*"
+sklearn = "*"
+numpy = "*"
+tensorflow = "*"
+keras = "*"
 
 [dev-packages]
 
