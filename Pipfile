@@ -12,6 +12,7 @@ sklearn = "*"
 numpy = "*"
 tensorflow = "*"
 keras = "*"
+pydot = "*"
 
 [dev-packages]
 
