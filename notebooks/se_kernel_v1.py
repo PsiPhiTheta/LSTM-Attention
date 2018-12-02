@@ -117,7 +117,7 @@ if __name__ == '__main__':
     y_val_ar = y_val.values.reshape((int(len(y_val)/522), 522))
     y_test_ar = y_test.values.reshape((int(len(y_test)/522), 522))
 
-    # 4. Build model from Keras
+    # 4. Build Keras model
     model = Sequential()
     model.add(LSTM(50, input_shape=(1, 41*522)))  # adds LSTM layer
     model.add(Dense(522))  # adds a dense layer
