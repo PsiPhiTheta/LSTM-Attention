@@ -1,12 +1,49 @@
 # Antoine Viscardi's Activity Log
 
+## 02 Dec 2018
+- Added top down accuracy and it works well.
+- Next steps:
+	- Implement for other split strategies
+	- Do grid search on hyper parameters: 
+		- lstm_size [16, 32, 64]
+		- lag     [1, 5, 15, 30, 60, 90] revert back to 30 if too much computations
+		- dropout [0.0, 0.05, 0.10, 0.15, ..., 0.4]
+	- Run the algorithm on the other stocks
+
+- Refactor lag function so that lag=10 means you have 10 time steps.
+
+
+## 01 Dec 2018
+- Finally managed to make my model work. 
+- I strongly beleive that the data has to be rearanged in 3D
+	- number of observations (samples)
+	- number of timesteps per observation
+	- number of features (input dimension)
+- I manage to train the training and validation error quickly stabilize. It looks weird.
+- Also, it seems like weights are not reinitialized between runs. I have to figure that out.
+- Finally, I have to figure out how to test the model. 
+	- Simply do predictions and manually compute a score?
+
+- I fixed weird training curve behaviors by scaling the data. I think LSTMs are very sensitive to scaling.
+
+## 29 Nov 2018
+- The data is set up (train, val, test).
+- I implemented the LSTM based on SE's previous implementation.
+- Should the data be normalized (MinMaxScaller)?
+- I am confused about the dimensions of the LSTM, namely, how many cells and what exactly each dimenesion of the the 3D input tensor represent. 
+	- Keras defines LSTM input as 
+		3D tensor with shape (batch_size, timesteps, input_dim), (Optional) 2D tensors with shape (batch_size, output_dim).
+	- Does that mean 
+	- I will ask SE about that.
+	- I suspect that I would have inputs of `batch_size=X.shape[0]`, `timesteps = 1`, `input_dim = X.shape[1]` but I have a very hard time wrapping my mind around that.
+
+
 ## 27 Nov 2018
 - Generated figures for the four different data split strategies (basically learned how to use Inkscpape on the spot)
 - Setup dev environment with Tensorflow and Keras
 - Started watching Hvass' intro tutorials on Tensorflow and Keras on Youtube.
 - Read [good blog post][3] on RNNs and why LSTMs (special form of RNNs) are so popular.
 - Implemented functions to save the cleaned and filtered data localy and to retrieve it.
-
 
 
 ## 26 Nov 2018 (Meeting)
