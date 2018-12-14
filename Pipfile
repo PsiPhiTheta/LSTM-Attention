@@ -10,9 +10,9 @@ jupyter = "*"
 matplotlib = "*"
 sklearn = "*"
 numpy = "*"
-tensorflow = "*"
 keras = "*"
 pydot = "*"
+tensorflow = "*"
 
 [dev-packages]
 
