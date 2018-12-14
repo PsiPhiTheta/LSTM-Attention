@@ -1,5 +1,12 @@
 # Antoine Viscardi's Activity Log
 
+## 13 Dec 2018
+- Finished implementing grid search
+- Implemented dumping of best model after every grid-search iteration
+	- Want to find a way of logging at which epoch the model was saved and with what accuracy.
+- Implemented dumping of the history and utility function to plot it.
+- Ran the whole pipeline over night
+
 ## 02 Dec 2018
 - Added top down accuracy and it works well.
 - Next steps:
@@ -10,7 +17,10 @@
 		- dropout [0.0, 0.05, 0.10, 0.15, ..., 0.4]
 	- Run the algorithm on the other stocks
 
+### Meeting with SE
+TODO:
 - Refactor lag function so that lag=10 means you have 10 time steps.
+- 
 
 
 ## 01 Dec 2018
