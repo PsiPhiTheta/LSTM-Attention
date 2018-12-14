@@ -64,7 +64,7 @@ def plot_train_loss(history, ylim=(0, 0.03)):
 	plt.title('Training Loss')
 	plt.legend(['Train','Val'])
 	plt.show()
-
+	
 
 def top_down_acc(y_true, y_pred):
 	return K.abs(K.sign(y_true) + K.sign(y_pred)) / 2

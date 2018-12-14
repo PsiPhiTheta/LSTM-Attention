@@ -2,6 +2,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from os import listdir
+from os.path import isfile, join
+import pandas as pd
+import pickle
+
 
 def EDA():
     '''Prints a brief overview of the data.
@@ -93,3 +98,53 @@ def plot_chosen_assets():
     #plot_asset(market_train_df, "ALO.N") #Alio Gold (90M MC): unverified, low vol
     plot_asset(market_train_df, "BHE.N") #Benchmark Electronics (1Bn MC): verified, low vol
 
+
+def get_models_list(asset):
+    
+    # Import the list of models from the directory into a dataframe
+    models_path = './data/models'
+    models = [f for f in listdir(models_path) if isfile(join(models_path, f))]
+    models = pd.DataFrame(models)
+
+    # Strip the file extension
+    models = models[0].str[:-5]
+
+    # Split the string in multiple columns
+    models = models.str.split('-', expand=True)
+
+    # Remove the 'best-lstm' prefix columns
+    models = models.drop([0 ,1], axis=1)
+
+    # Set column names
+    models.columns = ['epoch', 'val_loss', 'asset', 
+        'lstm_size', 'lag', 'dropout']
+
+    # Cast to numeric
+    models['epoch'] = pd.to_numeric(models['epoch'])
+    models['val_loss'] = pd.to_numeric(models['val_loss'])
+    models['lstm_size'] = pd.to_numeric(models['lstm_size'])
+    models['lag'] = pd.to_numeric(models['lag'])
+    models['dropout'] = pd.to_numeric(models['dropout'])
+
+    # Filter for the asset
+    models = models[models['asset'] == asset]
+
+    return models
+
+
+def plot_train_loss(history, ylim=(0, 0.03)):
+    plt.ylim(ylim)
+
+    plt.plot(history['loss'])
+    plt.plot(history['val_loss'])
+
+    plt.xlabel('Epoch')
+    plt.ylabel('Mean Absolute Error Loss')
+    plt.title('Training Loss')
+    plt.legend(['Train','Val'])
+    plt.show()
+
+
+def get_history_from_file(file):
+    with open(file, 'rb') as f:
+        return pickle.load(f)

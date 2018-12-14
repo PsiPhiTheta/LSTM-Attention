@@ -13,6 +13,7 @@ numpy = "*"
 keras = "*"
 pydot = "*"
 tensorflow = "*"
+seaborn = "*"
 
 [dev-packages]
 
