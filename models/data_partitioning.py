@@ -99,7 +99,7 @@ def split_rolling_origin_recal(X, initial_train_size, rolling_size):
     Returns
     -------
     dataframe
-        The test set.
+        The training set.
     dataframe
         The validation set.
 
@@ -144,7 +144,7 @@ def split_rolling_origin_update(X, train_size, val_size):
     Returns
     -------
     dataframe
-        The test set followed by one new observation at a time.
+        The training set followed by one new observation at a time.
     dataframe
         The validation set followed by an empty dataframe after the first 
         iteration.
@@ -184,7 +184,7 @@ def split_rolling_window(X, train_size, val_size, shift):
     Returns
     -------
     dataframe
-        The test set.s
+        The training set.
     dataframe
         The validation set.
 
