@@ -26,12 +26,9 @@ ASSETS = ['INTC.O', 'WFC.N', 'AMZN.O', 'A.N', 'BHE.N']
 DATA_PATH = './data/processed/cleaned_filtered_data.csv'
 HISTORY_TOP_PATH = './data/history/'
 
-lag = 20 # size of look back
 test_frac = 0.1 # fraction of the whole data
 train_frac = 0.8 # fraction of the remaining data
-lstm_size = 64
 n_epochs = 200
-dropout = 0.1
 
 lstm_sizes = [16, 32, 64]
 lags = [1, 5, 15, 30, 60, 90]
@@ -45,29 +42,19 @@ def add_lag(df, lag=1):
 	return pd.concat(cols, axis=1).dropna()
 
 
-def plot_train_loss(history, ylim=(0, 0.03)):
-	''' Plot the training and validation loss.
-
-	Parameters
-	----------
-	history : dict
-		Dictionary as loaded from the saved pickle files.
-
-	'''
-	plt.ylim(ylim)
-
-	plt.plot(history['loss'])
-	plt.plot(history['val_loss'])
-
-	plt.xlabel('Epoch')
-	plt.ylabel('Mean Absolute Error Loss')
-	plt.title('Training Loss')
-	plt.legend(['Train','Val'])
-	plt.show()
-	
-
 def top_down_acc(y_true, y_pred):
 	return K.abs(K.sign(y_true) + K.sign(y_pred)) / 2
+
+
+def create_model(lstm_size, dropout, lag, n_features):
+	model = Sequential()
+	model.add(LSTM(lstm_size, dropout=dropout, 
+				   input_shape=(lag+1, n_features)))
+	model.add(Dense(1, activation='tanh'))
+	model.compile(loss='mse', optimizer='adam', 
+				  metrics=[top_down_acc])
+	return model
+
 
 if __name__ == '__main__':
 	
@@ -121,12 +108,7 @@ if __name__ == '__main__':
 
 			# Create the model
 			# Input shape expected (timesteps, input_dim)
-			model = Sequential()
-			model.add(LSTM(lstm_size, dropout=dropout, 
-						   input_shape=(lag+1, n_features)))
-			model.add(Dense(1, activation='tanh'))
-			model.compile(loss='mse', optimizer='adam', 
-						  metrics=[top_down_acc])
+			model = create_model(lstm_size, dropout, lag, n_features)
 
 			# Fit the model
 			checkpoint_name = ('best-lstm-{{epoch:03d}}-{{val_loss:.4f}}-{}-{}-'

@@ -1,5 +1,18 @@
 # Antoine Viscardi's Activity Log
 
+## 14 Dec 2018
+- Finished grid search on INTC.O
+- Looking at results, train_loss is sometimes much higher than val_loss.
+	- Keras provides an explanation for this: https://keras.io/getting-started/faq/#why-is-the-training-loss-much-higher-than-the-testing-loss
+- Sent results to Thomas
+- Performed test with the best models and sent the results to Thomas.
+
+TODO:
+- Integrate other splitting methods
+	- Use same hyper params as INTEL for other assets
+- Train model with same params on other stocks
+
+
 ## 13 Dec 2018
 - Finished implementing grid search
 - Implemented dumping of best model after every grid-search iteration
@@ -7,20 +20,20 @@
 - Implemented dumping of the history and utility function to plot it.
 - Ran the whole pipeline over night
 
+
 ## 02 Dec 2018
 - Added top down accuracy and it works well.
 - Next steps:
 	- Implement for other split strategies
 	- Do grid search on hyper parameters: 
 		- lstm_size [16, 32, 64]
-		- lag     [1, 5, 15, 30, 60, 90] revert back to 30 if too much computations
+		- lag [1, 5, 15, 30, 60, 90] revert back to 30 if too much computations
 		- dropout [0.0, 0.05, 0.10, 0.15, ..., 0.4]
 	- Run the algorithm on the other stocks
 
 ### Meeting with SE
 TODO:
 - Refactor lag function so that lag=10 means you have 10 time steps.
-- 
 
 
 ## 01 Dec 2018
@@ -35,6 +48,7 @@ TODO:
 	- Simply do predictions and manually compute a score?
 
 - I fixed weird training curve behaviors by scaling the data. I think LSTMs are very sensitive to scaling.
+
 
 ## 29 Nov 2018
 - The data is set up (train, val, test).

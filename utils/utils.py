@@ -148,3 +148,11 @@ def plot_train_loss(history, ylim=(0, 0.03)):
 def get_history_from_file(file):
     with open(file, 'rb') as f:
         return pickle.load(f)
+
+
+def get_history_from_params(path, asset, lstm_size, lag, dropout):
+    path = '{}/lstm-{}-{}-{}-{}.pickle'.format(
+        path, asset, lstm_size, lag, dropout)
+    with open(path, 'rb') as f:
+        return pickle.load(f)
+
