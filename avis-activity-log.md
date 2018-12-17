@@ -1,11 +1,43 @@
 # Antoine Viscardi's Activity Log
 
+## 17 Dec 2018
+- Talked with Thomas, only implement fixed origin LSTM with found hyper params on other stocks.
+- Trained and tested fixed origin LSTM using the other stocks
+
+TODO:
+- Resend the data for rolling window and rolling origin recalibrate
+- Two loss plots like SE of loss over Epoch. 
+- Send link about val loss lower than train loss.
+
+## 16 Dec 2018
+- Implemented training with rolling-window. 
+	- The model is trained on each window for 1 epoch.
+	- The training is 20% of the data
+	- The validation is 10% of the data
+	- The window is shifted by 15 timesteps (days) at each iteration
+
+- Implemented training with rolling origin recalibrate.
+	- The model is trained on each window for 1 epoch
+	- The initial training set is 10% of the data
+	- The rolling window is 10 days
+
+- Sent the results to Thomas.
+
+TODO:
+- Train and test models on the other four stocks.
+
+
 ## 14 Dec 2018
 - Finished grid search on INTC.O
 - Looking at results, train_loss is sometimes much higher than val_loss.
 	- Keras provides an explanation for this: https://keras.io/getting-started/faq/#why-is-the-training-loss-much-higher-than-the-testing-loss
 - Sent results to Thomas
 - Performed test with the best models and sent the results to Thomas.
+
+- The best model selected : 
+	- lstm_size: 64
+	- lag: 15
+	- dropout: 0.1
 
 TODO:
 - Integrate other splitting methods
