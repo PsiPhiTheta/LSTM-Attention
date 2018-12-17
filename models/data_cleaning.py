@@ -170,7 +170,7 @@ def extract_asset(X_train, y_train, assetCode):
     y_train_asset = y_train_asset[y_train_asset['assetCode']==assetCode]
     y_train_asset = y_train_asset.T.tail(1).T
     
-    return X_train_asset, y_train_asset
+    return X_train_asset.copy(), y_train_asset.copy()
 
 
 def generate_cleaned_filtered_data(market_data_path, news_data_path, 
