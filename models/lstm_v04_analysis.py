@@ -41,12 +41,12 @@ def perform_tests():
 	asset = 'INTC.O'
 	lstm_size = 64
 	lag = 15
-	dropout = 10
+	dropout = 0.1
 
-	path = './data/models/rollingwindow/'
+	path = './data/models/lstm_recal'
 	models = listdir(path)
 
-	df_lag, df_lag_test, n_features = get_df(test_frac)
+	df_lag, df_lag_test, n_features = get_df(test_frac, asset)
 	X_test = df_lag_test.drop('y', axis=1)
 	y_test = df_lag_test['y']
 
@@ -60,7 +60,7 @@ def perform_tests():
 	f.write(model.metrics_names[0] + ',' + model.metrics_names[1] + '\n')
 	
 	for model_name in models:
-		model.load_weights(path + model_name)
+		model.load_weights(path + '/' + model_name)
 		scores = model.evaluate(X_test, y_test, verbose=0)
 		f.write('{},{}\n'.format(scores[0], scores[1]))
 
@@ -68,7 +68,7 @@ def perform_tests():
 
 
 if __name__ == '__main__':
-	history = concat_history()
+	# history = concat_history()
 	# plot_train_loss(history)
 	
-	# perform_tests()
+	perform_tests()

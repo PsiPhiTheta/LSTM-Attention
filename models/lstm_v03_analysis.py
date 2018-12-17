@@ -42,12 +42,12 @@ def perform_tests():
 	asset = 'INTC.O'
 	lstm_size = 64
 	lag = 15
-	dropout = 10
+	dropout = 0.1
 
 	path = './data/models/rollingwindow'
 	models = listdir(path)
 
-	df_lag, df_lag_test, n_features = get_df(test_frac)
+	df_lag, df_lag_test, n_features = get_df(test_frac, asset)
 	X_test = df_lag_test.drop('y', axis=1)
 	y_test = df_lag_test['y']
 
@@ -57,7 +57,7 @@ def perform_tests():
 
 	model = create_model(lstm_size, dropout, lag, n_features)
 
-	f = open('data/lstm_rollingwindow.csv', 'w+')
+	f = open('data/lstm_rollingwindow_1.csv', 'w+')
 	f.write(model.metrics_names[0] + ',' + model.metrics_names[1] + '\n')
 	
 	for model_name in models:
@@ -69,7 +69,7 @@ def perform_tests():
 
 
 if __name__ == '__main__':
-	history = concat_history()
+	# history = concat_history()
 	# plot_train_loss(history)
 	
-	# perform_tests()
+	perform_tests()
