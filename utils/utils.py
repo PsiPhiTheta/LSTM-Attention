@@ -132,8 +132,9 @@ def get_models_list(asset):
     return models
 
 
-def plot_train_loss(history, ylim=(0, 0.03)):
+def plot_train_loss(history, ylim=(0, 0.01), xlim=(0, 50)):
     plt.ylim(ylim)
+    plt.xlim(xlim)
 
     plt.plot(history['loss'])
     plt.plot(history['val_loss'])
@@ -156,3 +157,8 @@ def get_history_from_params(path, asset, lstm_size, lag, dropout):
     with open(path, 'rb') as f:
         return pickle.load(f)
 
+if __name__ == '__main__':
+    hist = get_history_from_params(
+        './data/history/fixedpoint', 
+        'INTC.O', 32, 30, 15)
+    plot_train_loss(hist, xlim=(20, 100))

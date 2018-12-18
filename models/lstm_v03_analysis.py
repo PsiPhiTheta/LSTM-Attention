@@ -57,7 +57,7 @@ def perform_tests():
 
 	model = create_model(lstm_size, dropout, lag, n_features)
 
-	f = open('data/lstm_rollingwindow_1.csv', 'w+')
+	f = open('data/lstm_rollingwindow.csv', 'w+')
 	f.write(model.metrics_names[0] + ',' + model.metrics_names[1] + '\n')
 	
 	for model_name in models:
