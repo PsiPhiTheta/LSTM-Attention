@@ -77,8 +77,8 @@ df = pd.read_csv(cleaned_data_path)
 df.drop(['Unnamed: 0', 'Unnamed: 0.1', 'time'], inplace=True, axis=1)
 
 # For loop for assets
-asset = 'INTC.O'
-df = df[df['assetCode'] == 'INTC.O']
+asset = 'BHE.N'
+df = df[df['assetCode'] == asset]
 df.drop(['assetCode'], axis=1, inplace=True)
 
 split = len(df) - round(test_frac*len(df))
@@ -108,18 +108,16 @@ X_test = df_test.drop(['returnsOpenNextMktres10'], axis=1)
 X_test_init = X_test.reset_index(drop=True)
 print('The test data size is : ', X_test.shape, y_test.shape)
 
-# TODO : test data
-# TODO : IMAGES
-
 # Hyperparameter tuning
 # lag (1, 5, 15, 30, 60, 90), dropout (LSTM) (0, 0.05, 0.4), cells (16, 32, 64)
 n_features = 40
 n_timesteps_out = 1
-n_epochs = 100
+n_epochs = 25
 
-for n_timesteps_in in [1, 5, 15, 30, 60, 90]:
+# LSTM + EncoderDecoder
+for n_timesteps_in in [1]:
     for dropout in [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]:
-        for cells in [16, 32, 64]:
+        for cells in [16]:
 
             X_train, y_train = time_lag_data(X_train_init, y_train_init,
                                              n_in=n_timesteps_in,
@@ -181,17 +179,10 @@ for n_timesteps_in in [1, 5, 15, 30, 60, 90]:
             fig.savefig('lstm_ed_v0_ts_{}_drop_{}_cells_{}.png'.format(str(n_timesteps_in),
                                                                     str(dropout),
                                                                     str(cells)))
-prediction = model_at.predict(X_test)
-prediction[:,0].shape
-y_test[:,0].shape
-r = sum(top_down_acc(p[0], np.float32(t[0])) for p, t in zip(prediction[:,0], y_test[:,0]))/len(y_test)
-with tf.Session() as sess:
-    a = sess.run(r)
-a
-
-for n_timesteps_in in [5]:  # [1, 5, 15, 30, 60, 90]:
-    for dropout in [0]:  # [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]:
-        for cells in [64]:  # [16, 32, 64]:
+# LSTM + Attention
+for n_timesteps_in in [1, 5, 15, 30, 60, 90]:
+    for dropout in [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]:
+        for cells in [16, 32, 64]:
 
             n_timesteps_out = n_timesteps_in
 
@@ -225,8 +216,6 @@ for n_timesteps_in in [5]:  # [1, 5, 15, 30, 60, 90]:
             X_test = X_test.reshape((len(X_test), n_timesteps_in, n_features))
             y_test = y_test.values.reshape((len(y_test), n_timesteps_out, 1))
 
-
-            # Model with Encoder/Decoder
             model_at = Sequential()
             model_at.add(LSTM(cells, input_shape=(n_timesteps_in, n_features),
                               return_sequences=True))
@@ -241,7 +230,7 @@ for n_timesteps_in in [5]:  # [1, 5, 15, 30, 60, 90]:
                                 validation_data=(X_val, y_val),
                                 shuffle=False)
 
-            with open('results/history_att_v0_ts_{}_drop_{}_cells_{}'.format(str(n_timesteps_in),
+            with open('results_final/history_att_v0_ts_{}_drop_{}_cells_{}'.format(str(n_timesteps_in),
                                                                     str(dropout),
                                                                     str(cells)), 'wb') as file_hs:
                 pickle.dump(history.history, file_hs)
@@ -256,15 +245,17 @@ for n_timesteps_in in [5]:  # [1, 5, 15, 30, 60, 90]:
             ax = fig.add_subplot(1, 1, 1)
             ax.plot(history.history['loss'])
             ax.plot(history.history['val_loss'])
-            ax.set_xlim([0, 100])
+            ax.set_xlim([0, 40])
             ax.set_ylim([0, 0.01])
             # plt.plot(history.history['top_down_acc'])
 
             ax.set_xlabel('Epoch')
             ax.set_ylabel('Mean Absolute Error Loss')
-            ax.set_title('Loss Over Time - Predicted Top-Down Accuracy : {}'.format(str(top_down_accuracy)))
+            print(min(history.history['val_loss']))
+            ax.set_title('Loss Over Time')
+            print('Predicted Top-Down Accuracy : {}'.format(str(top_down_accuracy)))
             ax.legend(['Train','Val'])
             # plt.legend(['Train','Val', 'Top Down Accuracy'])
-            fig.savefig('results/lstm_att_v0_ts_{}_drop_{}_cells_{}.png'.format(str(n_timesteps_in),
+            fig.savefig('results_final/lstm_att_v0_ts_{}_drop_{}_cells_{}.png'.format(str(n_timesteps_in),
                                                                     str(dropout),
                                                                     str(cells)))
