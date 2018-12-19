@@ -1,2 +1,3 @@
-# MLTermProject
-## A comparison of attention mechanisms and RNNs to forecast financial time series
+# LSTM-Attention
+
+A Comparison of LSTMs and Attention Mechanisms for Forecasting Financial Time Series
