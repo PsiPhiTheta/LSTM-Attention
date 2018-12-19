@@ -1,0 +1,182 @@
+\begin{thebibliography}{10}
+
+\bibitem{bahdanau2014neural}
+Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio.
+\newblock Neural machine translation by jointly learning to align and
+  translate.
+\newblock {\em arXiv preprint arXiv:1409.0473}, 2014.
+
+\bibitem{bao2017deep}
+Wei Bao, Jun Yue, and Yulei Rao.
+\newblock A deep learning framework for financial time series using stacked
+  autoencoders and long-short term memory.
+\newblock {\em PloS one}, 12(7):e0180944, 2017.
+
+\bibitem{bergmeir2012use}
+Christoph Bergmeir and Jos{\'e}~M Ben{\'\i}tez.
+\newblock On the use of cross-validation for time series predictor evaluation.
+\newblock {\em Information Sciences}, 191:192--213, 2012.
+
+\bibitem{bollerslev1986generalized}
+Tim Bollerslev.
+\newblock Generalized autoregressive conditional heteroskedasticity.
+\newblock {\em Journal of econometrics}, 31(3):307--327, 1986.
+
+\bibitem{burg1968new}
+John~Parker Burg.
+\newblock A new analysis technique for time series data.
+\newblock {\em Paper presented at NATO Advanced Study Institute on Signal
+  Processing, Enschede, Netherlands, 1968}, 1968.
+
+\bibitem{chandra2012cooperative}
+Rohitash Chandra and Mengjie Zhang.
+\newblock Cooperative coevolution of elman recurrent neural networks for
+  chaotic time series prediction.
+\newblock {\em Neurocomputing}, 86:116--123, 2012.
+
+\bibitem{chen1989representations}
+Sheng Chen and Steve~A Billings.
+\newblock Representations of non-linear systems: the narmax model.
+\newblock {\em International Journal of Control}, 49(3):1013--1032, 1989.
+
+\bibitem{engle1982autoregressive}
+Robert~F Engle.
+\newblock Autoregressive conditional heteroscedasticity with estimates of the
+  variance of united kingdom inflation.
+\newblock {\em Econometrica: Journal of the Econometric Society}, pages
+  987--1007, 1982.
+
+\bibitem{engle1993measuring}
+Robert~F Engle and Victor~K Ng.
+\newblock Measuring and testing the impact of news on volatility.
+\newblock {\em The journal of finance}, 48(5):1749--1778, 1993.
+
+\bibitem{firat2016multi}
+Orhan Firat, Kyunghyun Cho, and Yoshua Bengio.
+\newblock Multi-way, multilingual neural machine translation with a shared
+  attention mechanism.
+\newblock {\em arXiv preprint arXiv:1601.01073}, 2016.
+
+\bibitem{graves2014neural}
+Alex Graves, Greg Wayne, and Ivo Danihelka.
+\newblock Neural turing machines.
+\newblock {\em arXiv preprint arXiv:1410.5401}, 2014.
+
+\bibitem{hamilton1994time}
+James~Douglas Hamilton.
+\newblock {\em Time series analysis}, volume~2.
+\newblock Princeton university press Princeton, NJ, 1994.
+
+\bibitem{hamzaoui2016glosten}
+Nessrine Hamzaoui and Boutheina Regaieg.
+\newblock The glosten-jagannathan-runkle-generalized autoregressive conditional
+  heteroscedastic approach to investigating the foreign exchange forward
+  premium volatility.
+\newblock {\em International Journal of Economics and Financial Issues},
+  6(4):1608--1615, 2016.
+
+\bibitem{hentschel1995all}
+Ludger Hentschel et~al.
+\newblock All in the family: Nesting symmetric and asymmetric garch models.
+\newblock {\em Journal of Financial Economics}, 39(1):71--104, 1995.
+
+\bibitem{hochreiter1997long}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural computation}, 9(8):1735--1780, 1997.
+
+\bibitem{hollis2018deep}
+Thomas Hollis.
+\newblock Deep learning algorithms applied to blockchain-based financial time
+  series.
+\newblock 2018.
+
+\bibitem{kaggle2017twosigma}
+Kaggle.
+\newblock Two sigma: Using news to predict stock movements.
+\newblock \url{https://www.kaggle.com/c/two-sigma-financial-news}.
+\newblock Accessed: 2018-09-30.
+
+\bibitem{kim2003financial}
+Kyoung-jae Kim.
+\newblock Financial time series forecasting using support vector machines.
+\newblock {\em Neurocomputing}, 55(1-2):307--319, 2003.
+
+\bibitem{kingma2014adam}
+Diederik~P Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock {\em arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem{kohonen1982self}
+Teuvo Kohonen.
+\newblock Self-organized formation of topologically correct feature maps.
+\newblock {\em Biological cybernetics}, 43(1):59--69, 1982.
+
+\bibitem{koskela1998time}
+Timo Koskela, Markus Varsta, Jukka Heikkonen, and Kimmo Kaski.
+\newblock Time series prediction using recurrent som with local linear models.
+\newblock {\em Int. J. of Knowledge-Based Intelligent Engineering Systems},
+  2(1):60--68, 1998.
+
+\bibitem{krizhevsky2012imagenet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1097--1105, 2012.
+
+\bibitem{kuremoto2014time}
+Takashi Kuremoto, Shinsuke Kimura, Kunikazu Kobayashi, and Masanao Obayashi.
+\newblock Time series forecasting using a deep belief network with restricted
+  boltzmann machines.
+\newblock {\em Neurocomputing}, 137:47--56, 2014.
+
+\bibitem{lin2009short}
+Xiaowei Lin, Zehong Yang, and Yixu Song.
+\newblock Short-term stock price prediction based on echo state networks.
+\newblock {\em Expert systems with applications}, 36(3):7313--7317, 2009.
+
+\bibitem{malkiel1970efficient}
+Burton~G Malkiel and Eugene~F Fama.
+\newblock Efficient capital markets: A review of theory and empirical work.
+\newblock {\em The journal of Finance}, 25(2):383--417, 1970.
+
+\bibitem{murphy1999technical}
+John~J Murphy.
+\newblock {\em Technical analysis of the financial markets: A comprehensive
+  guide to trading methods and applications}.
+\newblock Penguin, 1999.
+
+\bibitem{pierre1998estimating}
+Eileen F~St Pierre.
+\newblock Estimating egarch-m models: Science or art?
+\newblock {\em The Quarterly Review of Economics and Finance}, 38(2):167--180,
+  1998.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  5998--6008, 2017.
+
+\bibitem{walker1931periodicity}
+Gilbert~Thomas Walker.
+\newblock On periodicity in series of related terms.
+\newblock {\em Proceedings of the Royal Society of London. Series A, Containing
+  Papers of a Mathematical and Physical Character}, 131(818):518--532, 1931.
+
+\bibitem{xu2015show}
+Kelvin Xu, Jimmy Ba, Ryan Kiros, Kyunghyun Cho, Aaron Courville, Ruslan
+  Salakhudinov, Rich Zemel, and Yoshua Bengio.
+\newblock Show, attend and tell: Neural image caption generation with visual
+  attention.
+\newblock In {\em International conference on machine learning}, pages
+  2048--2057, 2015.
+
+\bibitem{zhang2003time}
+G~Peter Zhang.
+\newblock Time series forecasting using a hybrid arima and neural network
+  model.
+\newblock {\em Neurocomputing}, 50:159--175, 2003.
+
+\end{thebibliography}
